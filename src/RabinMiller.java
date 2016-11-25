@@ -14,14 +14,12 @@ public class RabinMiller {
     BigInteger numberForTestingMinusOne;
     int amountOfCircles;
 
-    public RabinMiller(int amountOfCircles, BigInteger currentNumberForTesting) {
-        numberForTesting = currentNumberForTesting;
-        numberForTestingMinusOne = currentNumberForTesting.subtract(BigInteger.ONE);
-        this.amountOfCircles = amountOfCircles;
+    public RabinMiller() {
     }
 
-    public Boolean getRabinMillerPrime() {
+    public Boolean getRabinMillerPrime(BigInteger currentNumberForTesting, int amountOfCircles) {
         if( isCurrentNumberForTestingLegal(numberForTesting)){
+            initializeImportantValues(amountOfCircles,currentNumberForTesting);
             defineSAndT(numberForTesting);
             divideSWithTwoUnitlTwoIsOdd();
             initializeRandom();
@@ -59,6 +57,12 @@ public class RabinMiller {
 
     private boolean isOdd( BigInteger input) {
         return (input.mod(two) == BigInteger.ONE);
+    }
+
+    private void initializeImportantValues(int amountOfCircles, BigInteger currentNumberForTesting) {
+        numberForTesting = currentNumberForTesting;
+        numberForTestingMinusOne = currentNumberForTesting.subtract(BigInteger.ONE);
+        this.amountOfCircles = amountOfCircles;
     }
 
     private void defineSAndT(BigInteger input) {

@@ -29,7 +29,8 @@ public class Main {
 			falsePrimeWith32Bit = new BigInteger(32, rnd);
 		}while (falsePrimeWith32Bit.compareTo(compare32Bit) >= 0);
 		countFalseResults32++;
-		while(!(RabinMiller.getRabinMillerPrime(falsePrimeWith32Bit,1) == true && RabinMiller.getRabinMillerPrime(falsePrimeWith32Bit,10) == false)){
+        RabinMiller rabinMiller = new RabinMiller();
+		while(!(rabinMiller.getRabinMillerPrime(falsePrimeWith32Bit,1) == true && rabinMiller.getRabinMillerPrime(falsePrimeWith32Bit,10) == false)){
 			find32BitFalseResult();
 		}
 		return falsePrimeWith32Bit;
@@ -37,9 +38,11 @@ public class Main {
 	
 	public static void primeWithinOneMillion(){
 		int primeWithinOneMillion = 0;
+        RabinMiller rabinMiller = new RabinMiller();
 		for(int k = 1; k < 6; k++){
 			for(int i = 0; i < 1000000; i++){
-				if(RabinMiller.getRabinMillerPrime(i, k)) primeWithinOneMillion++;
+                BigInteger iAsBigInteger = new BigInteger(i + "");
+				if(rabinMiller.getRabinMillerPrime(iAsBigInteger, k)) primeWithinOneMillion++;
 			}
 			System.out.println("k= " + k + "finds " + primeWithinOneMillion + "prime numbers");
 			primeWithinOneMillion = 0;
@@ -55,7 +58,8 @@ public class Main {
 		}while (falsePrimeWith512Bit.compareTo(compare512Bit) >= 0);
 		
 		countResults512++;
-		while(!(RabinMiller.getRabinMillerPrime(falsePrimeWith512Bit,5) == false)){
+        RabinMiller rabinMiller = new RabinMiller();
+		while(!(rabinMiller.getRabinMillerPrime(falsePrimeWith512Bit,5) == false)){
 			find32BitFalseResult();
 		}
 		return falsePrimeWith512Bit;
