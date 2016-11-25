@@ -1,3 +1,4 @@
+
 import java.math.BigInteger;
 import java.util.Random;
 
@@ -113,7 +114,7 @@ public class RabinMiller {
         do {
             rndm = generateRandomNumber();
         } while (! isRandomNumberInBorders(rndm));
-        
+
         return rndm;
     }
 
