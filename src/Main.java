@@ -37,7 +37,7 @@ public class Main {
 		BigInteger falsePrimeWith32Bit;
 		do{
 			falsePrimeWith32Bit = new BigInteger(32, rnd);
-		}while (falsePrimeWith32Bit.compareTo(compare32Bit) >= 0);
+		}while (falsePrimeWith32Bit.compareTo(compare32Bit) <= 0);
 		return falsePrimeWith32Bit;
 	}
 
@@ -49,7 +49,7 @@ public class Main {
                 BigInteger iAsBigInteger = new BigInteger(i + "");
 				if(rabinMiller.getRabinMillerPrime(iAsBigInteger, k)) primeWithinOneMillion++;
 			}
-			System.out.println("k= " + k + " finds " + primeWithinOneMillion + " prime numbers");
+			System.out.println("k = " + k + " finds " + primeWithinOneMillion + " prime numbers");
 			primeWithinOneMillion = 0;
 		}
 	}
@@ -60,7 +60,7 @@ public class Main {
 		BigInteger falsePrimeWith512Bit;
 		do{
 			falsePrimeWith512Bit = new BigInteger(512, rnd);
-		}while (falsePrimeWith512Bit.compareTo(compare512Bit) >= 0);
+		}while (falsePrimeWith512Bit.compareTo(compare512Bit) <= 0);
 		
 		countResults512++;
         RabinMiller rabinMiller = new RabinMiller();
