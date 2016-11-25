@@ -8,6 +8,7 @@ public class Main {
 
 	private static int countFalseResults32 = 0;
 	private static int countResults512 = 0;
+    static  BigInteger smalles32BitNumer = new BigInteger("2147483648");
 
 	public static void main(String [ ] args) {
 		primeWithinOneMillion();
@@ -23,8 +24,7 @@ public class Main {
 	
 	public static BigInteger find32BitFalseResult(){
 		Random rnd = new Random();
-		BigInteger compare32Bit = new BigInteger("2147483648");
-		BigInteger falsePrimeWith32Bit = findNewBigEnoughRandomNumber(rnd, compare32Bit);
+		BigInteger falsePrimeWith32Bit = findNewBigEnoughRandomNumber(rnd);
 		countFalseResults32++;
         RabinMiller rabinMiller = new RabinMiller();
 		while(!(rabinMiller.getRabinMillerPrime(falsePrimeWith32Bit,1) == true && rabinMiller.getRabinMillerPrime(falsePrimeWith32Bit,10) == false)){
@@ -33,11 +33,11 @@ public class Main {
 		return falsePrimeWith32Bit;
 	}
 
-	private static BigInteger findNewBigEnoughRandomNumber(Random rnd, BigInteger compare32Bit) {
+	private static BigInteger findNewBigEnoughRandomNumber(Random rnd) {
 		BigInteger falsePrimeWith32Bit;
 		do{
 			falsePrimeWith32Bit = new BigInteger(32, rnd);
-		}while (falsePrimeWith32Bit.compareTo(compare32Bit) <= 0);
+		}while (falsePrimeWith32Bit.compareTo(smalles32BitNumer) <= 0);
 		return falsePrimeWith32Bit;
 	}
 
