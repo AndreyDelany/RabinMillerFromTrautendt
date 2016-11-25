@@ -5,20 +5,24 @@ import java.util.Random;
  * Created by andreydelany on 24/11/2016.
  */
 public class RabinMiller {
-    static BigInteger three = new BigInteger("3");
-    static BigInteger two = new BigInteger("2");
-    static BigInteger s;
-    static BigInteger t;
-    static Random randomGenerator;
-    static BigInteger numberForTesting;
-    static BigInteger numberForTestingMinusOne;
+    BigInteger three = new BigInteger("3");
+    BigInteger two = new BigInteger("2");
+    BigInteger s;
+    BigInteger t;
+    Random randomGenerator;
+    BigInteger numberForTesting;
+    BigInteger numberForTestingMinusOne;
+    int amountOfCircles;
 
-    public static Boolean getRabinMillerPrime(int amountOfCircles, BigInteger currentNumberForTesting) {
+    public RabinMiller(int amountOfCircles, BigInteger currentNumberForTesting) {
+        numberForTesting = currentNumberForTesting;
+        numberForTestingMinusOne = currentNumberForTesting.subtract(BigInteger.ONE);
+        this.amountOfCircles = amountOfCircles;
+    }
 
-        if( isCurrentNumberForTestingLegal(currentNumberForTesting)){
-            numberForTesting = currentNumberForTesting;
-            numberForTestingMinusOne = currentNumberForTesting.subtract(BigInteger.ONE);
-            defineSAndT(currentNumberForTesting);
+    public Boolean getRabinMillerPrime() {
+        if( isCurrentNumberForTestingLegal(numberForTesting)){
+            defineSAndT(numberForTesting);
             divideSWithTwoUnitlTwoIsOdd();
             initializeRandom();
             runActualAlgorithmGivenNumberOfTimes(amountOfCircles);
@@ -28,52 +32,52 @@ public class RabinMiller {
         return false;
     }
 
-    private static boolean isCurrentNumberForTestingLegal(BigInteger input) {
+    private boolean isCurrentNumberForTestingLegal(BigInteger input) {
         return isBiggerThenThree(input) && isOdd(input);
     }
 
-    private static boolean isBiggerThenThree( BigInteger input) {
+    private boolean isBiggerThenThree( BigInteger input) {
         if (input.compareTo(three) == -1)
             return false;
         else
             return true;
     }
 
-    private static boolean isBiggerThenTwo( BigInteger input) {
+    private boolean isBiggerThenTwo( BigInteger input) {
         if (input.compareTo(two) == -1)
             return false;
         else
             return true;
     }
 
-    private static boolean isSmallerThenN( BigInteger input) {
+    private boolean isSmallerThenN( BigInteger input) {
         if (input.compareTo(numberForTesting) == 1)
             return false;
         else
             return true;
     }
 
-    private static boolean isOdd( BigInteger input) {
+    private boolean isOdd( BigInteger input) {
         return (input.mod(two) == BigInteger.ONE);
     }
 
-    private static void defineSAndT(BigInteger input) {
+    private void defineSAndT(BigInteger input) {
         s = input.subtract(BigInteger.ONE);
         t = BigInteger.ZERO;
     }
 
-    private static void divideSWithTwoUnitlTwoIsOdd() {
+    private void divideSWithTwoUnitlTwoIsOdd() {
         while (!isOdd(s)) {
             s = s.divide(two);
             t = t.add(BigInteger.ONE);
         }
     }
 
-    private static void initializeRandom() {
+    private void initializeRandom() {
         randomGenerator = new Random();
     }
 
-    private static boolean runActualAlgorithmGivenNumberOfTimes(int amountOfCircles) {
+    private boolean runActualAlgorithmGivenNumberOfTimes(int amountOfCircles) {
         for(int i = 0; i < amountOfCircles; i++) {
             if (! actualAlgorithm())
                     return false;
@@ -81,7 +85,7 @@ public class RabinMiller {
         return true;
     }
 
-    private static boolean actualAlgorithm() {
+    private boolean actualAlgorithm() {
         BigInteger a = createRandomNumber();
         BigInteger v = a.modPow(s,numberForTesting);
         if (v.compareTo(BigInteger.ONE) == 0)
@@ -100,7 +104,7 @@ public class RabinMiller {
         return true;
     }
 
-    private static BigInteger createRandomNumber() {
+    private BigInteger createRandomNumber() {
         BigInteger rndm = generateRandomNumber();
         while (! isRandomNumberInBorders(rndm)) {
             rndm = generateRandomNumber();
@@ -108,11 +112,11 @@ public class RabinMiller {
         return rndm;
     }
 
-    private static BigInteger generateRandomNumber() {
+    private BigInteger generateRandomNumber() {
         return new BigInteger((numberForTesting).bitLength(),randomGenerator);
     }
 
-    private static boolean isRandomNumberInBorders(BigInteger input){
+    private boolean isRandomNumberInBorders(BigInteger input){
         return isBiggerThenTwo(input) && isSmallerThenN(input);
     }
 }
