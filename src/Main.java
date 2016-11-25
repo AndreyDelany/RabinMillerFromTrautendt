@@ -44,7 +44,7 @@ public class Main {
                 BigInteger iAsBigInteger = new BigInteger(i + "");
 				if(rabinMiller.getRabinMillerPrime(iAsBigInteger, k)) primeWithinOneMillion++;
 			}
-			System.out.println("k= " + k + "finds " + primeWithinOneMillion + "prime numbers");
+			System.out.println("k= " + k + " finds " + primeWithinOneMillion + " prime numbers");
 			primeWithinOneMillion = 0;
 		}
 	}

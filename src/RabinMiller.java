@@ -18,8 +18,8 @@ public class RabinMiller {
     }
 
     public Boolean getRabinMillerPrime(BigInteger currentNumberForTesting, int amountOfCircles) {
+        initializeImportantValues(amountOfCircles,currentNumberForTesting);
         if( isCurrentNumberForTestingLegal(numberForTesting)){
-            initializeImportantValues(amountOfCircles,currentNumberForTesting);
             defineSAndT(numberForTesting);
             divideSWithTwoUnitlTwoIsOdd();
             initializeRandom();
@@ -109,10 +109,11 @@ public class RabinMiller {
     }
 
     private BigInteger createRandomNumber() {
-        BigInteger rndm = generateRandomNumber();
-        while (! isRandomNumberInBorders(rndm)) {
+        BigInteger rndm;
+        do {
             rndm = generateRandomNumber();
-        }
+        } while (! isRandomNumberInBorders(rndm));
+        
         return rndm;
     }
 
