@@ -35,9 +35,9 @@ public class Main {
 
 	private static BigInteger findNewBigEnoughRandomNumber(Random rnd) {
 		BigInteger falsePrimeWith32Bit;
-		do{
+		do {
 			falsePrimeWith32Bit = new BigInteger(32, rnd);
-		}while (falsePrimeWith32Bit.compareTo(smalles32BitNumer) <= 0);
+		} while (falsePrimeWith32Bit.compareTo(smalles32BitNumer) <= 0);
 		return falsePrimeWith32Bit;
 	}
 
@@ -47,7 +47,8 @@ public class Main {
 		for(int k = 1; k < 6; k++){
 			for(int i = 0; i < 1000000; i++){
                 BigInteger iAsBigInteger = new BigInteger(i + "");
-				if(rabinMiller.getRabinMillerPrime(iAsBigInteger, k)) primeWithinOneMillion++;
+				if(rabinMiller.getRabinMillerPrime(iAsBigInteger, k))
+				    primeWithinOneMillion ++;
 			}
 			System.out.println("k = " + k + " finds " + primeWithinOneMillion + " prime numbers");
 			primeWithinOneMillion = 0;
