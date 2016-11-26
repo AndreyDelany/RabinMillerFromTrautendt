@@ -9,36 +9,59 @@ public class Main {
 	private static int countFalseResults32 = 0;
 	private static int countResults512 = 0;
     static  BigInteger smalles32BitNumer = new BigInteger("2147483648");
+    static  BigInteger smalles512BitNumer = new BigInteger((int)Math.pow(2, 511) + "");
+    static int counter = 0;
+	private static boolean found32BitResult = false;
+	private static BigInteger falsePrimeWith32Bit;
+	private static boolean found512BitResult = false;
+	private static BigInteger pseudoPrimeWith512Bit;
 
 	public static void main(String [ ] args) {
 		primeWithinOneMillion();
-		System.out.println();
-		System.out.println("False Prime Number with 32 Bit is: " + find32BitFalseResult() + ".");
+        RabinMiller rabinMiller = new RabinMiller();
+		System.out.println();		
+		while(!found32BitResult ){
+			Random rnd = new Random();
+			falsePrimeWith32Bit = findNewBigEnoughRandomNumberWith32Bit(rnd);
+			found32BitResult = find32BitFalseResult(rabinMiller, falsePrimeWith32Bit);
+		}
+		System.out.println("False Prime Number with 32 Bit is: " + falsePrimeWith32Bit + ".");
 		System.out.println("We tested " + countFalseResults32 + " different numbers.");
 		countFalseResults32 = 0;
+		
+		while(!found512BitResult){
+			Random rnd = new Random();
+			pseudoPrimeWith512Bit = findNewBigEnoughRandomNumberWith512Bit(rnd);
+			found512BitResult = find512BitPseudoPrime(rabinMiller);
+		}
 		System.out.println();
-		System.out.println("Our randomly generated 512 Bit pseudo prime number is " + find512BitPseudoPrime() + ".");
+		System.out.println("Our randomly generated 512 Bit pseudo prime number is " + pseudoPrimeWith512Bit + ".");
 		System.out.println("We tested " + countResults512 + " different numbers.");
 		countResults512 = 0;
 		}
 	
-	public static BigInteger find32BitFalseResult(){
-		Random rnd = new Random();
-		BigInteger falsePrimeWith32Bit = findNewBigEnoughRandomNumber(rnd);
+	public static boolean find32BitFalseResult(RabinMiller rabinMiller, BigInteger falsePrimeWith32Bit){
 		countFalseResults32++;
-        RabinMiller rabinMiller = new RabinMiller();
-		while(!(rabinMiller.getRabinMillerPrime(falsePrimeWith32Bit,1) == true && rabinMiller.getRabinMillerPrime(falsePrimeWith32Bit,10) == false)){
-			find32BitFalseResult();
+		if(!(rabinMiller.getRabinMillerPrime(falsePrimeWith32Bit,1) == true && rabinMiller.getRabinMillerPrime(falsePrimeWith32Bit,10) == false)){
+			return false;
 		}
-		return falsePrimeWith32Bit;
+		return true;
 	}
 
-	private static BigInteger findNewBigEnoughRandomNumber(Random rnd) {
-		BigInteger falsePrimeWith32Bit;
+	private static BigInteger findNewBigEnoughRandomNumberWith32Bit(Random rnd) {
+		BigInteger with32Bit;
 		do {
-			falsePrimeWith32Bit = new BigInteger(32, rnd);
-		} while (falsePrimeWith32Bit.compareTo(smalles32BitNumer) <= 0);
-		return falsePrimeWith32Bit;
+			with32Bit = new BigInteger(32, rnd);
+		} while (with32Bit.compareTo(smalles32BitNumer) <= 0);
+		return with32Bit;
+	}
+	
+	private static BigInteger findNewBigEnoughRandomNumberWith512Bit(Random rnd) {
+		BigInteger with512Bit;
+		do {
+			with512Bit = new BigInteger(512, rnd);
+		} while (with512Bit.compareTo(smalles512BitNumer) <= 0);
+		return with512Bit;
 	}
 
 	public static void primeWithinOneMillion(){
@@ -55,19 +78,11 @@ public class Main {
 		}
 	}
 	
-	public static BigInteger find512BitPseudoPrime(){
-		Random rnd = new Random();
-		BigInteger compare512Bit = new BigInteger(Math.pow(2, 511) + "");
-		BigInteger falsePrimeWith512Bit;
-		do{
-			falsePrimeWith512Bit = new BigInteger(512, rnd);
-		}while (falsePrimeWith512Bit.compareTo(compare512Bit) <= 0);
-		
+	public static boolean find512BitPseudoPrime(RabinMiller rabinMiller){
 		countResults512++;
-        RabinMiller rabinMiller = new RabinMiller();
-		while(!(rabinMiller.getRabinMillerPrime(falsePrimeWith512Bit,5) == false)){
-			find32BitFalseResult();
+		if((rabinMiller.getRabinMillerPrime(pseudoPrimeWith512Bit,5) == true)){
+			return true;
 		}
-		return falsePrimeWith512Bit;
+		return false;
 	}
 }

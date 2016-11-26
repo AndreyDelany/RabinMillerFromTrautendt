@@ -20,7 +20,7 @@ public class RabinMiller {
 
     public Boolean getRabinMillerPrime(BigInteger currentNumberForTesting, int amountOfCircles) {
         initializeImportantValues(amountOfCircles,currentNumberForTesting);
-        if( isCurrentNumberForTestingLegal(numberForTesting)){
+        if(isCurrentNumberForTestingLegal(numberForTesting)){
             defineSAndT(numberForTesting);
             divideSWithTwoUnitlTwoIsOdd();
             initializeRandom();
