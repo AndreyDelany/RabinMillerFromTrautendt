@@ -24,11 +24,10 @@ public class RabinMiller {
             defineSAndT(numberForTesting);
             divideSWithTwoUnitlTwoIsOdd();
             initializeRandom();
-            runActualAlgorithmGivenNumberOfTimes(amountOfCircles);
+            return runActualAlgorithmGivenNumberOfTimes(amountOfCircles);
         } else {
             return false;
         }
-        return false;
     }
 
     private boolean isCurrentNumberForTestingLegal(BigInteger input) {
@@ -57,7 +56,7 @@ public class RabinMiller {
     }
 
     private boolean isOdd( BigInteger input) {
-        return (input.mod(two) == BigInteger.ONE);
+        return input.mod(two).compareTo(BigInteger.ONE) == 0;
     }
 
     private void initializeImportantValues(int amountOfCircles, BigInteger currentNumberForTesting) {
