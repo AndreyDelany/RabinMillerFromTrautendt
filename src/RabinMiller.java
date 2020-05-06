@@ -2,9 +2,6 @@
 import java.math.BigInteger;
 import java.util.Random;
 
-/**
- * Created by andreydelany on 24/11/2016.
- */
 public class RabinMiller {
     BigInteger three = new BigInteger("3");
     BigInteger two = new BigInteger("2");
