@@ -1,16 +1,13 @@
 import java.math.BigInteger;
 import java.util.Random;
 
-/**
- * Created by andreydelany on 24/11/2016.
- */
 public class Main {
 
 	private static int countFalseResults32 = 0;
 	private static int countResults512 = 0;
-    static  BigInteger smalles32BitNumer = new BigInteger("2147483648");
-    static  BigInteger smalles512BitNumer = new BigInteger((int)Math.pow(2, 511) + "");
-    static int counter = 0;
+    	static  BigInteger smalles32BitNumer = new BigInteger("2147483648");
+    	static  BigInteger smalles512BitNumer = new BigInteger((int)Math.pow(2, 511) + "");
+    	static int counter = 0;
 	private static boolean found32BitResult = false;
 	private static BigInteger falsePrimeWith32Bit;
 	private static boolean found512BitResult = false;
